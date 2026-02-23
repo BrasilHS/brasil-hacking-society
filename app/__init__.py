@@ -3,7 +3,12 @@ from .config import Config
 from .extensions import db, migrate
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(
+        __name__,
+        template_folder="web/templates",
+        static_folder="web/static"
+    )
+
     app.config.from_object(Config)
 
     db.init_app(app)
