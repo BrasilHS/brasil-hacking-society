@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="max-w-2xl mx-auto">
+    <!-- Lista de Posts -->
+    <div class="space-y-6">
+        <!-- Header -->
+        <div class="mb-6">
+            <a class="text-zinc-400 text-lg hover:text-emerald-400 cursor-pointer transition" href="#writeups">Writeups</a>
+            <span class="text-zinc-400 text-lg">|</span>
+            <a class="text-zinc-400 text-lg hover:text-emerald-400 cursor-pointer transition" href="#questions">Perguntas</a>
+        </div>
+        {% for post in posts %}
+            {% include "card.html" %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+

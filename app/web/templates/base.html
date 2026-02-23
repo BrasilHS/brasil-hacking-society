@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Brasil Hacking Society{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-200 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="border-b border-zinc-800 bg-zinc-950">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="text-lg font-semibold text-emerald-400">
+                Brasil Hacking Society
+            </a>
+
+            <div class="flex gap-6 text-sm text-zinc-400">
+                <a href="/stories" class="hover:text-zinc-200">Stories</a>
+                <a href="/questions" class="hover:text-zinc-200">Questions</a>
+                <a href="/login" class="hover:text-zinc-200">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 py-10">
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>

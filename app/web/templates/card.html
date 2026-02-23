@@ -1,0 +1,60 @@
+
+{% block content %}
+
+<!-- Card Post -->
+<div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 hover:border-zinc-700 transition">
+
+    <!-- Autor -->
+    <div class="flex items-center justify-between mb-3">
+
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-zinc-700"></div>
+            <div class="text-sm text-zinc-400">
+                <span class="text-zinc-300 font-medium">Luan</span>
+                <!-- • 20 Fev 2026 -->
+                <span class="text-zinc-400 font-medium ml-2">
+                    {{ post.created_at }}
+                </span>
+            </div>
+        </div>
+
+        <div class="relative">
+            <button class="text-zinc-500 hover:text-zinc-300 text-xl">
+                ⋯
+            </button>
+        </div>
+
+    </div>
+
+    <a href="#/post/{{ post.id }}">
+        <!-- Título -->
+        <h2 class="text-xl font-semibold mb-2 hover:text-emerald-400 cursor-pointer transition">
+            {{ post.title }}
+        </h2>
+
+        <!-- Preview -->
+        <p class="text-zinc-400 line-clamp-2">
+            {{ post.content }}
+        </p>
+    </a>
+
+    <!-- Footer -->
+    <div class="flex items-center gap-6 mt-5 text-sm text-zinc-500">
+
+        <!-- Votos -->
+        <div class="flex items-center gap-1">
+            <span class="text-emerald-400 font-semibold">42</span>
+            <span>votos</span>
+        </div>
+
+        <!-- Comentários -->
+        <div class="flex items-center gap-1">
+            <span class="text-zinc-300 font-semibold">8</span>
+            <span>comentários</span>
+        </div>
+    </div>
+</div>
+<!-- Fim Card -->
+
+{% endblock %}
+
