@@ -1,5 +1,4 @@
-from flask import Flask, render_template
-
+from flask import Flask
 from .config import Config
 from .extensions import db, migrate
 
@@ -15,9 +14,12 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
+    # Importing database models 
+    from .models import User, Post
+
+    # Importing app routes
     from .routes.public import public_bp
     from .routes.admin import admin_bp
-
     app.register_blueprint(public_bp)
     app.register_blueprint(admin_bp, url_prefix="/admin")
 
@@ -25,3 +27,4 @@ def create_app():
         app.debug = True 
 
     return app
+

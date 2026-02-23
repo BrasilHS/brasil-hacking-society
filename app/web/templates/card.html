@@ -6,11 +6,10 @@
 
     <!-- Autor -->
     <div class="flex items-center justify-between mb-3">
-
         <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-full bg-zinc-700"></div>
             <div class="text-sm text-zinc-400">
-                <span class="text-zinc-300 font-medium">Luan</span>
+                <span class="text-zinc-300 font-medium">{{ post.author.username }}</span>
                 <!-- • 20 Fev 2026 -->
                 <span class="text-zinc-400 font-medium ml-2">
                     {{ post.created_at }}
@@ -23,7 +22,6 @@
                 ⋯
             </button>
         </div>
-
     </div>
 
     <a href="#/post/{{ post.id }}">
@@ -43,13 +41,13 @@
 
         <!-- Votos -->
         <div class="flex items-center gap-1">
-            <span class="text-emerald-400 font-semibold">42</span>
+            <span class="text-emerald-400 font-semibold">{{ post.votes }}</span>
             <span>votos</span>
         </div>
 
         <!-- Comentários -->
         <div class="flex items-center gap-1">
-            <span class="text-zinc-300 font-semibold">8</span>
+            <span class="text-zinc-300 font-semibold">26</span>
             <span>comentários</span>
         </div>
     </div>
