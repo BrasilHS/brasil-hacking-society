@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-[70vh] flex items-center justify-center px-4">
+    
+    <div class="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-xl p-8 shadow-lg">
+
+        <h2 class="text-2xl font-semibold text-emerald-400 mb-6 text-center">
+            Criar Conta
+        </h2>
+
+        <form method="POST" id="form_register" class="space-y-5">
+
+            <!-- Username -->
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">
+                    Username
+                </label>
+                <input 
+                    type="text"
+                    name="username"
+                    id="username"
+                    required
+                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
+                           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
+                           transition"
+                >
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">
+                    Email
+                </label>
+                <input 
+                    type="email"
+                    name="email"
+                    id="email"
+                    required
+                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
+                           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
+                           transition"
+                >
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">
+                    Senha
+                </label>
+                <input 
+                    type="password"
+                    name="password"
+                    id="password"
+                    required
+                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
+                           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
+                           transition"
+                >
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-4">
+                <label class="block text-sm text-gray-400 mb-2">
+                    Confirmar Senha
+                </label>
+                <input 
+                    type="password"
+                    name="confirm_password"
+                    id="confirm_password"
+                    required
+                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
+                           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
+                           transition mb-2"
+                >
+            </div>
+
+            <!-- Button -->
+            <button 
+                type="submit"
+                id="submit"
+                class="block w-full bg-emerald-400 hover:bg-[#27ae60] text-black font-semibold py-2 rounded-md 
+                       transition duration-200"
+            >
+                Criar Conta
+            </button>
+
+        </form>
+
+        <!-- Login link -->
+        <p class="mt-6 text-sm text-gray-500 text-center">
+            Já tem conta?
+            <a href="/login" 
+               class="text-emerald-400 hover:underline ml-1">
+               Fazer login
+            </a>
+        </p>
+
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+{% endblock %}  
