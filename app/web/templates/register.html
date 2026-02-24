@@ -9,7 +9,11 @@
             Criar Conta
         </h2>
 
-        <form method="POST" id="form_register" class="space-y-5">
+        <div id="toast" class="w-full px-4 py-2 rounded-md shadow-lg mb-4 border border-[#30363d] bg-grey-900 text-center hidden">
+            <span id="message" class="text-sm font-medium"></span>
+        </div>
+
+        <form method="POST" action="/api/auth/register" id="form_register" class="space-y-5">
 
             <!-- Username -->
             <div>
@@ -21,10 +25,7 @@
                     name="username"
                     id="username"
                     required
-                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
-                           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
-                           transition"
-                >
+                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 transition selection:bg-zinc-700">
             </div>
 
             <!-- Email -->
@@ -37,10 +38,7 @@
                     name="email"
                     id="email"
                     required
-                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
-                           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
-                           transition"
-                >
+                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 transition selection:bg-zinc-700">
             </div>
 
             <!-- Password -->
@@ -53,10 +51,7 @@
                     name="password"
                     id="password"
                     required
-                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
-                           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
-                           transition"
-                >
+                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 transition">
             </div>
 
             <!-- Confirm Password -->
@@ -69,19 +64,14 @@
                     name="confirm_password"
                     id="confirm_password"
                     required
-                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
-                           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
-                           transition mb-2"
-                >
+                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 transition mb-2">
             </div>
 
             <!-- Button -->
             <button 
                 type="submit"
                 id="submit"
-                class="block w-full bg-emerald-400 hover:bg-[#27ae60] text-black font-semibold py-2 rounded-md 
-                       transition duration-200"
-            >
+                class="block w-full bg-emerald-400 hover:bg-[#27ae60] text-black font-semibold py-2 rounded-md transition duration-200">
                 Criar Conta
             </button>
 
@@ -98,5 +88,10 @@
 
     </div>
 </div>
+<style>
+    #toast {
+        transition: opacity 0.5s ease;
+    }   
+</style>
 <script src="{{ url_for('static', filename='js/register.js') }}"></script>
 {% endblock %}  

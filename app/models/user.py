@@ -11,7 +11,7 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=uuid4().hex)
+    id: Mapped[str] = mapped_column(String(32), primary_key=True, default=lambda: uuid4().hex)
     username: Mapped[str] = mapped_column(String(30), unique=True, nullable=False) 
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False) 
     password: Mapped[str] = mapped_column(String(255), nullable=False)

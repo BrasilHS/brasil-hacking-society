@@ -1,12 +1,16 @@
-from marshmallow import fields, validate, post_load, validates_schema, ValidationError
+from marshmallow import fields, validate, post_load, validates_schema, ValidationError, EXCLUDE
 
 from ..models import User
 from ..extensions import ma, db
 
 class UserRegister(ma.Schema):
-    username = fields.String(required=True, validate=validate.Length(min=3))
-    email = fields.Email(required=True)
-    password = fields.String(required=True, validate=validate.Length(min=8))
+
+    class Meta:
+        unknown = EXCLUDE
+
+    username = fields.String(required=True)
+    email = fields.Email(required=True, error_messages={"error": "Invalid email"})
+    password = fields.String(required=True)
     confirm_password = fields.String(required=True)
 
     @post_load
@@ -20,14 +24,22 @@ class UserRegister(ma.Schema):
     @validates_schema
     def validate_user(self, data, **kwargs):
 
-        if db.session.query(User.username).filter_by(username=data["username"]).first:
-            raise ValidationError({"username": "username alredy in use"})
+        if len(data["username"]) < 3:
+            raise ValidationError("Username minimum length is 3", field_name="error")
+
+        if db.session.query(User.username).filter_by(username=data["username"]).first():
+            raise ValidationError("Username already in use", field_name="error")
         
-        if db.session.query(User.email).filter_by(email=data["email"]).first:
-            raise ValidationError({"email": "email alredy in use"})
+        if db.session.query(User.email).filter_by(email=data["email"]).first():
+            raise ValidationError("Email already in use", field_name="error")
+
+        if len(data["password"]) < 8:
+            raise ValidationError("Password minimum length is 8", field_name="error")
 
         if data["password"] != data["confirm_password"]:
-            raise ValidationError({"confirm_password": "password not match"})
+            raise ValidationError("Password not match", field_name="error")
+        
+
         
     # @validates_schema
     # def validate_email_already_in_use(self, data, **kwargs):

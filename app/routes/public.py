@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, flash
 from marshmallow import ValidationError
 
 from ..extensions import db
@@ -30,29 +30,36 @@ def login():
 
     return render_template("login.html")
 
-@public_bp.route("/register", methods=["GET", "POST"])
+@public_bp.route("/register", methods=["GET"])
 def register():
-    if request.method == "POST":
+    return render_template("register.html")
 
-        user_register_data = request.form.to_dict()  
-        if not user_register_data:
-            return jsonify({"error": "no data provided"}), 422
-        
-        user_register_schema = UserRegister(only={
-            "username", "email", "password", "confirm_password"
-        })
+@public_bp.route("/api/auth/register", methods=["POST"])
+def auth_register():
 
-        try:
-            user = user_register_schema.load(user_register_data)
-        except ValidationError as err:
-            return jsonify(err.messages), 422
-        
-        print(user)
+    if not request.is_json:
+        return jsonify({"error": "É esperado Content-Type: application/json"}), 422
 
+    user_register_data = request.get_json()
+    if not user_register_data:
+        return jsonify({"error": "Dados não recebidos"}), 422
+    
+    user_register_schema = UserRegister(only={
+        "username", "email", "password", "confirm_password"
+    })
+
+    try:
+        user = user_register_schema.load(user_register_data)
+    except ValidationError as err:
+        return jsonify(err.messages), 422   
+
+    try:
         db.session.add(user)
         db.session.commit()
+    except Exception as err:
+        print(err.messages)
+        return jsonify({"error": "There is something wrong"})
 
-        return jsonify({"message": "user created"}), 201
-    
-    return render_template("register.html")
+    return jsonify({"message": "Usuário cadastrado, você já pode fazer Login!"}), 201
+
 
