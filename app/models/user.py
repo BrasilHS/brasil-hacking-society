@@ -12,9 +12,9 @@ class User(db.Model):
     __tablename__ = "users"
 
     id: Mapped[str] = mapped_column(String(32), primary_key=True, default=uuid4().hex)
-    username: Mapped[str] = mapped_column(String(30), nullable=False) 
-    email: Mapped[str] = mapped_column(String(120), nullable=False) 
-    password: Mapped[str] = mapped_column(String(255), nullable=False) 
+    username: Mapped[str] = mapped_column(String(30), unique=True, nullable=False) 
+    email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False) 
+    password: Mapped[str] = mapped_column(String(255), nullable=False)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
@@ -23,6 +23,7 @@ class User(db.Model):
 
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
+        default=lambda: datetime.now(timezone.utc),
         onupdate=lambda: datetime.now(timezone.utc)
     )
 

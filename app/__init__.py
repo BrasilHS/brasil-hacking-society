@@ -1,6 +1,7 @@
 from flask import Flask
+
 from .config import Config
-from .extensions import db, migrate
+from .extensions import db, migrate, ma
 
 def create_app():
     app = Flask(
@@ -13,6 +14,7 @@ def create_app():
 
     db.init_app(app)
     migrate.init_app(app, db)
+    ma.init_app(app)
 
     # Importing database models 
     from .models import User, Post
