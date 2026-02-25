@@ -66,6 +66,6 @@ def auth_register():
         print(err)
         return jsonify({"error": "There is something wrong"}), 500
 
-    return jsonify({"message": "Usuário cadastrado, você já pode fazer Login!"}), 201
+    return jsonify({"message": "User registered, you can login now!"}), 201
 
 

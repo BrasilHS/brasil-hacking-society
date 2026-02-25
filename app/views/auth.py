@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, redirect
 
-auth_view_bp = Blueprint("auth", __name__)
+auth_view_bp = Blueprint("auth_view", __name__)
 
 @auth_view_bp.route("/login", methods=["GET"])
 def login():

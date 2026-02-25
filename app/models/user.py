@@ -6,16 +6,6 @@ from datetime import datetime, timezone
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, DateTime
 
-from argon2 import PasswordHasher, Type
-
-ph = PasswordHasher(
-    memory_cost=65536,      # 64 MiB de memória
-    time_cost=4,            # 4 iterações
-    parallelism=2,          # 2 threads
-    hash_len=32,            # Tamanho do hash: 32 bytes
-    type=Type.ID            # Usa Argon2id
-)
-
 class User(db.Model):
 
     __tablename__ = "users"

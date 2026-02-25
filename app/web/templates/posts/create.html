@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="w-full h-full">
+
+  <div class="bg-zinc-900 border border-zinc-800 rounded-xl shadow-lg">
+
+    <!-- Header -->
+    <div class="flex justify-between border-b border-zinc-800 px-6 py-4">
+      <div>
+        <p class="text-sm text-zinc-400 mt-1">
+          {% if type == 'writeup' %}
+            Share your writeup with the community.
+          {% else %}
+            Ask your question and get help from the community.
+          {% endif %}
+        </p>
+      </div>
+      <div >
+        {% if type == 'writeup' %}
+          <a href="/post/question/new" class="px-2 text-sm  text-zinc-400 hover:text-emerald-400">Click here to ask a question</a>
+        {% else %}
+          <a href="/post/writeup/new" class="px-2 text-sm  text-zinc-400 hover:text-emerald-400">Click here to write a writeup</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="px-6 py-6">
+      <form id="form_new_post" method="POST" action="/api/post/new" class="space-y-6">
+
+        <!-- Title -->
+        <div>
+          <label for="title" class="block text-sm font-medium text-zinc-300 mb-2">
+            Title
+          </label>
+          <input 
+            type="text"
+            name="title"
+            id="title"
+            minlength="4"
+            required
+            placeholder="Enter a descriptive title"
+            class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-white transition focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 transition"
+          >
+        </div>
+
+        <!-- Content -->
+        <div>
+          <label for="content" class="block text-sm font-medium text-zinc-300 mb-2">
+            Content
+          </label>
+          <textarea
+            name="content"
+            id="content"
+            rows="10"
+            minlength="20"
+            required
+            placeholder="Clear as day content..."
+            class="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white transition resize-y focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 transition"
+          ></textarea>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex justify-between items-center gap-4 pt">
+
+          <button
+            type="submit"
+            class="block bg-emerald-400 hover:bg-[#27ae60] text-black font-semibold py-2 px-6 rounded-md transition duration-200"
+          >
+            Send
+          </button>
+
+          <a href="{{ url_for('public.index') }}" class="text-zinc-400  transition py-2 px-6 hover:text-emerald-400">Cancel</a>
+
+        </div>
+
+        <input name="type" type="hidden" value="{{ type }}">
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("form_new_post")
+
+        if (form) {
+            form.addEventListener("submit", (e) => {
+            handleFormSubmit(e, {201: "/"})
+            });
+        }
+    })
+</script>
+{% endblock %}

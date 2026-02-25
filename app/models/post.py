@@ -11,6 +11,7 @@ class Post(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True) 
     title: Mapped[str] = mapped_column(String(200), nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
+    type: Mapped[str] = mapped_column(String(20), nullable=False)
     votes: Mapped[int] = mapped_column(Integer, default=0) 
 
     created_at: Mapped[int] = mapped_column(
@@ -26,3 +27,14 @@ class Post(db.Model):
     author: Mapped["User"] = relationship(
         back_populates="posts"
     )
+
+    def insert(self):
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            raise e
+
+    def set_user_id(self, user_id):
+        self.user_id = user_id

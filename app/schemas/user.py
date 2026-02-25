@@ -1,4 +1,4 @@
-from marshmallow import fields, validate, post_load, validates_schema, ValidationError, EXCLUDE
+from marshmallow import fields, post_load, validates_schema, ValidationError, EXCLUDE
 
 from ..models import User
 from ..extensions import ma
