@@ -66,9 +66,19 @@
                Criar conta
             </a>
         </p>
-
     </div>
-
 </div>
-<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("form_login")
+
+        if (form) {
+            form.addEventListener("submit", (e) => {
+            handleFormSubmit(e, {200: "/"})
+            });
+        }
+    })
+</script>
+
 {% endblock %}

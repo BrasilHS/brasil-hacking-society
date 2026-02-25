@@ -22,8 +22,9 @@
 
                 {% if not session.get("user", None) %}
                     <a href="/login" class="hover:text-zinc-200">Login</a>
-                    <a href="/register" class="hover:text-zinc-200">Signin</a>
+                    <a href="/register" class="hover:text-zinc-200">Signup</a>
                 {% else %}
+                    <a href="/post/new" class="hover:text-zinc-200">Publicar</a>
                     <a href="/logout" class="hover:text-zinc-200">Logout</a>
                 {% endif %}
 

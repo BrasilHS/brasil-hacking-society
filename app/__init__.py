@@ -19,11 +19,15 @@ def create_app():
     # Importing database models 
     from .models import User, Post
 
-    # Importing app routes
-    from .routes.public import public_bp
-    from .routes.admin import admin_bp
+    # Importing api routes
+    from .api.auth import auth_api_bp
+    app.register_blueprint(auth_api_bp, url_prefix="/api/auth")
+
+    # Importing views routes
+    from .views.auth import auth_view_bp
+    from .views.public import public_bp
+    app.register_blueprint(auth_view_bp)
     app.register_blueprint(public_bp)
-    app.register_blueprint(admin_bp, url_prefix="/admin")
 
     if app.config.get("ENVIRONMENT") == "development":
         app.debug = True 

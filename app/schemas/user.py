@@ -1,7 +1,7 @@
 from marshmallow import fields, validate, post_load, validates_schema, ValidationError, EXCLUDE
 
 from ..models import User
-from ..extensions import ma, db
+from ..extensions import ma
 
 class UserLogin(ma.Schema):
 
@@ -57,26 +57,3 @@ class UserRegister(ma.Schema):
         if data["password"] != data["confirm_password"]:
             raise ValidationError("Password not match", field_name="error")
         
-
-        
-    # @validates_schema
-    # def validate_email_already_in_use(self, data, **kwargs):
-    #     email = data.get("email")
-    #     email_in_use = db.session.query(User.email).filter_by(email=email).first
-    #     if email_in_use:
-    #         raise ValidationError("Email alredy in use", field_name="email")
-
-    # @validates_schema
-    # def validate_username_already_in_use(self, data, **kwargs):
-    #     username = data.get("username")
-    #     username_in_use = db.session.query(User.username).filter_by(username=username).first
-    #     if username_in_use:
-    #         raise ValidationError("Username alredy in use", field_name="username")
-
-    # @validates_schema
-    # def validate_password_match(self, data, **kwargs):
-    #     if data.get("password") != data.get("confirm_password"):
-    #         raise ValidationError("Password not match", field_name="confirm_password")
-
-
-

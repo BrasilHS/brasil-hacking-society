@@ -88,10 +88,23 @@
 
     </div>
 </div>
+
 <style>
     #toast {
         transition: opacity 0.5s ease;
     }   
 </style>
-<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("form_register")
+
+        if (form) {
+            form.addEventListener("submit", (e) => {
+            handleFormSubmit(e, {201: "/login"})
+            });
+        }
+    })
+</script>
+
 {% endblock %}  
