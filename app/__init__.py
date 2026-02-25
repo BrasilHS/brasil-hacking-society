@@ -17,7 +17,7 @@ def create_app():
     ma.init_app(app)
 
     # Importing database models 
-    from .models import User, Post
+    from .models import User, Post, Comment
 
     # Importing api routes
     from .api.auth import auth_api_bp

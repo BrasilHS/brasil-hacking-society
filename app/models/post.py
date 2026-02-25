@@ -14,9 +14,15 @@ class Post(db.Model):
     type: Mapped[str] = mapped_column(String(20), nullable=False)
     votes: Mapped[int] = mapped_column(Integer, default=0) 
 
-    created_at: Mapped[int] = mapped_column(
+    created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), 
         default=lambda: datetime.now(timezone.utc)
+    ) 
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), 
+        default=lambda: datetime.now(timezone.utc),
+        onupdate=lambda: datetime.now(timezone.utc)
     ) 
 
     user_id: Mapped[str] = mapped_column(
@@ -26,6 +32,11 @@ class Post(db.Model):
 
     author: Mapped["User"] = relationship(
         back_populates="posts"
+    )
+
+    comments: Mapped[list["Comment"]] = relationship(
+        back_populates="post",
+        cascade="all, delete-orphan"
     )
 
     def insert(self):

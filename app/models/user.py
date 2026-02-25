@@ -31,6 +31,12 @@ class User(db.Model):
         cascade="all, delete-orphan"
     )
 
+    comments: Mapped[list["Comment"]] = relationship(
+        back_populates="author",
+        cascade="all, delete-orphan"
+    )
+
+
     def insert(self):
         try:    
             self.password = hash_password(self.password)

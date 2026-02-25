@@ -1,0 +1,31 @@
+<!-- Footer (Votes / Stats) -->
+<div class="py-2 flex items-center justify-between text-sm text-zinc-400">
+
+    <div class="flex items-center justify-between text-sm text-zinc-400">
+        <div class="flex items-center gap-3">
+            <span>By <span class="text-zinc-300 font-medium">{{ username }}</span>
+            <span>•</span>
+            <span>{{ created_at.strftime('%b %d, %Y') }}</span>
+        </div>
+
+        {% if session.get("user_id") == author_id %}
+            <div class="flex items-center gap-4">
+                <!-- <a href="#" class="hover:text-white transition">Edit</a> -->
+                <a href="#" class="hover:text-red-400 transition">Delete</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="flex items-center gap-6 text-sm text-zinc-400">
+        <div>
+            <span>{{ qnt_replies }} comments</span>
+        </div>
+        <div class="flex items-center gap-6 text-sm">
+            <div class="flex items-center gap-2">
+                <button class="hover:text-white transition">▲</button>
+                <span class="{% if votes > 0 %} text-emerald-400 {% elif votes < 0 %} text-red-400 {% else %} text-zinc-400 {% endif %} font-medium">{{ votes or 0 }}</span>
+                <button class="hover:text-white transition">▼</button>
+            </div>
+        </div>
+    </div>
+</div>
