@@ -19,8 +19,14 @@
             <div class="flex gap-6 text-sm text-zinc-400">
                 <a href="/writeups" class="hover:text-zinc-200">Writeups</a>
                 <a href="/questions" class="hover:text-zinc-200">Perguntas</a>
-                <a href="/login" class="hover:text-zinc-200">Login</a>
-                <a href="/register" class="hover:text-zinc-200">Registrar</a>
+
+                {% if not session.get("user", None) %}
+                    <a href="/login" class="hover:text-zinc-200">Login</a>
+                    <a href="/register" class="hover:text-zinc-200">Signin</a>
+                {% else %}
+                    <a href="/logout" class="hover:text-zinc-200">Logout</a>
+                {% endif %}
+
             </div>
         </div>
     </nav>

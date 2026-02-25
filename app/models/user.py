@@ -1,11 +1,20 @@
 from ..extensions import db
+from ..utils.security import hash_password, verify_password
 
 from uuid import uuid4
 from datetime import datetime, timezone
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, DateTime
 
-from werkzeug.security import generate_password_hash, check_password_hash
+from argon2 import PasswordHasher, Type
+
+ph = PasswordHasher(
+    memory_cost=65536,      # 64 MiB de memória
+    time_cost=4,            # 4 iterações
+    parallelism=2,          # 2 threads
+    hash_len=32,            # Tamanho do hash: 32 bytes
+    type=Type.ID            # Usa Argon2id
+)
 
 class User(db.Model):
 
@@ -32,8 +41,15 @@ class User(db.Model):
         cascade="all, delete-orphan"
     )
 
-    def set_password(self, password):
-        self.password = generate_password_hash(password)
+    def insert(self):
+        try:    
+            self.password = hash_password(self.password)
+            db.session.add(self)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            raise e
 
     def check_password(self, password):
-        return check_password_hash(self.password, password)
+        return verify_password(self.password, password)
+    

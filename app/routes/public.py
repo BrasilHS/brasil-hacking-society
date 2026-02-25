@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify, session
+from flask import Blueprint, render_template, request, jsonify, session, redirect
 from sqlalchemy import select
 from marshmallow import ValidationError
 
@@ -26,6 +26,8 @@ def index():
 
 @public_bp.route("/login", methods=["GET"])
 def login():
+    if session.get("user", None):
+        return redirect("/")
     return render_template("login.html")
 
 @public_bp.route("/api/auth/login", methods=["POST"])
@@ -52,18 +54,20 @@ def auth_login():
         if not user_exists:
             return jsonify({"error": "Invalid login credentials"}), 422
         
-        if not user_exists.password == user["password"]:
+        if not user_exists.check_password(user["password"]):
             return jsonify({"error": "Invalid login credentials"}), 422
 
     except Exception as err:
         print(err)
         return jsonify({"error": "There is something wrong"}), 500
     
-    session["user"] = user_exists
+    session["user"] = user_exists.id
     return jsonify({"message": "success"}), 200
 
 @public_bp.route("/register", methods=["GET"])
 def register():
+    if session.get("user", None):
+        return redirect("/")
     return render_template("register.html")
 
 @public_bp.route("/api/auth/register", methods=["POST"])
@@ -86,8 +90,7 @@ def auth_register():
         return jsonify(err.messages), 422   
 
     try:
-        db.session.add(user)
-        db.session.commit()
+        user.insert()
     except Exception as err:
         print(err)
         return jsonify({"error": "There is something wrong"}), 500
@@ -95,3 +98,8 @@ def auth_register():
     return jsonify({"message": "Usuário cadastrado, você já pode fazer Login!"}), 201
 
 
+@public_bp.route("/logout", methods=["GET"])
+def logout():
+    if session.get("user", None):
+        session.pop("user")
+    return redirect("/")
