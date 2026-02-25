@@ -3,6 +3,24 @@ from marshmallow import fields, validate, post_load, validates_schema, Validatio
 from ..models import User
 from ..extensions import ma, db
 
+class UserLogin(ma.Schema):
+
+    class Meta:
+        unknow = EXCLUDE
+
+    username = fields.String(required=True)
+    password = fields.String(required=True)
+
+    @validates_schema
+    def validate_user(self, data, **kwargs):
+
+        if len(data["username"]) < 3:
+            raise ValidationError("Username minimum length is 3", field_name="error")
+        
+        if len(data["password"]) < 8:
+            raise ValidationError("Password minimum length is 8", field_name="error")
+
+    
 class UserRegister(ma.Schema):
 
     class Meta:
@@ -27,10 +45,10 @@ class UserRegister(ma.Schema):
         if len(data["username"]) < 3:
             raise ValidationError("Username minimum length is 3", field_name="error")
 
-        if db.session.query(User.username).filter_by(username=data["username"]).first():
+        if User.query.filter_by(username=data["username"]).first():
             raise ValidationError("Username already in use", field_name="error")
         
-        if db.session.query(User.email).filter_by(email=data["email"]).first():
+        if User.query.filter_by(email=data["email"]).first():
             raise ValidationError("Email already in use", field_name="error")
 
         if len(data["password"]) < 8:

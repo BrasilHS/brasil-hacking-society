@@ -9,16 +9,21 @@
             Login
         </h2>
 
-        <form method="POST" class="space-y-5">
+        <div id="toast" class="w-full px-4 py-2 rounded-md shadow-lg mb-4 border border-[#30363d] bg-grey-900 text-center hidden">
+            <span id="message" class="text-sm font-medium"></span>
+        </div>
 
-            <!-- Email -->
+        <form id="form_login" method="POST" action="/api/auth/login" class="space-y-5">
+
+            <!-- Username -->
             <div>
                 <label class="block text-sm text-gray-400 mb-2">
-                    Email
+                    Username
                 </label>
                 <input 
-                    type="email"
-                    name="email"
+                    type="text"
+                    name="username"
+                    minlength="3"
                     required
                     class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
                            focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
@@ -34,6 +39,7 @@
                 <input 
                     type="password"
                     name="password"
+                    minlength="8"
                     required
                     class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
                            focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
@@ -64,4 +70,5 @@
     </div>
 
 </div>
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 {% endblock %}

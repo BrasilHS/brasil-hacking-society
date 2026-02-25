@@ -9,31 +9,6 @@
 </head>
 <body class="bg-zinc-950 text-zinc-200 min-h-screen">
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="fixed top-5 right-5 z-50 space-y-3">
-                {% for category, message in messages %}
-                    <div 
-                        x-data="{ show: true }"
-                        x-show="show"
-                        x-init="setTimeout(() => show = false, 3000)"
-                        class="px-6 py-4 rounded-lg shadow-lg text-sm font-medium
-                        {% if category == 'error' %}
-                            bg-red-500 text-white
-                        {% elif category == 'success' %}
-                            bg-emerald-500 text-black
-                        {% else %}
-                            bg-zinc-800 text-white
-                        {% endif %}
-                        transition transform duration-300"
-                        >
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-
     <!-- Navbar -->
     <nav class="border-b border-zinc-800 bg-zinc-950">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
