@@ -1,9 +1,45 @@
 {% extends "base.html" %}
 
+{% macro render_comment(comment) %}
+    {% if comment.replies %}
+    <div class="w-full min-w-0 mb-4 comment">
+    {% else %}
+    <div class="w-full min-w-0 border-b border-zinc-800 mb-4 comment">
+    {% endif %}
+        <div class="py-2">
+            <div class="prose prose-invert max-w-none text-zinc-300 break-words">
+                {{ comment.content }}
+            </div>
+        </div>
+
+        {% with 
+            votes = comment.votes, 
+            qnt_replies = comment.replies | length,
+            username = comment.author.username,
+            created_at = comment.created_at,
+            author_id = comment.author.id,
+            post_id = comment.post_id,
+            comment_id = comment.id,
+            is_post = False
+        %}
+            {% include 'components/post_footer.html' %}
+        {% endwith %}
+
+        {% if comment.replies %}
+            <div class="border-l border-zinc-800 pl-4 mt-2">
+                {% for reply in comment.replies %}
+                    {{ render_comment(reply) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+
 {% block content %}
-<div class="max-w-4xl mx-auto px-4 py-10">
+<div class="w-full mx-auto min-w-0">
   <!-- Post Card -->
-  <article class="w-full bg-zinc-950 shadow-lg border-b border-zinc-800">
+  <article class="w-full bg-zinc-950 shadow-lg border-b border-zinc-800 comment ">
     <!-- Header -->
     <div class="py-2">
         <!-- Title -->
@@ -19,42 +55,59 @@
       </div>
     </div>
 
+    <!-- Footer Post -->
     {% with 
         votes = post.votes, 
         qnt_replies = post.comments | length,
         username = post.author.username,
         created_at = post.created_at,
-        author_id = post.author.id
+        author_id = post.author.id,
+        post_id = post.id,
+        comment_id = None,
+        is_post = True
     %}
         {% include 'components/post_footer.html' %}
     {% endwith %}
   </article>
 
   <!-- Comments Section -->
-  <section class="mt-10">
-    {% for comment in post.comments %}
-        <div class="w-full  border-b border-zinc-800 mb-4">
-            <div class="py-2">
-                <div class="prose prose-invert max-w-none text-zinc-300">
-                    {{ comment.content }}
-                </div>
-            </div>
-            {% with 
-                votes = comment.votes, 
-                qnt_replies = comment.comments | length,
-                username = comment.author.username,
-                created_at = comment.created_at,
-                author_id = comment.author.id
-            %}
-                {% include 'components/post_footer.html' %}
-            {% endwith %}
-        </div>
+  <section class="mt-2">
+    {% for comment in post.comments if not comment.parent_id %}
+        {{ render_comment(comment) }}
     {% else %}
       <p class="text-zinc-500 text-sm">
         No comments yet.
       </p>
     {% endfor %}    
   </section>
-
 </div>
+
+<form id="reply-form" method="POST" action="/api/comment/new" class="hidden">
+    <div class="py-4 text-sm">
+        <input type="text" name="content" placeholder="Answer" class="w-full py-2 bg-transparent focus:outline-none">
+    </div>
+    <input type="hidden" name="post_id" id="post-id" value="{{ post.id }}">
+    <input type="hidden" name="parent_id" id="parent-id">
+</form>
+
+<script>
+    const replyForm = document.getElementById("reply-form");
+    const parentInput = document.getElementById("parent-id");
+    const postInput = document.getElementById("post-id");
+
+    document.querySelectorAll(".reply").forEach(button => {
+        button.addEventListener("click", function () {
+
+            const postId = this.dataset.postId;
+            const commentId = this.dataset.commentId;
+
+            postInput.value = postId;
+            parentInput.value = commentId || "";
+
+            this.closest(".comment").appendChild(replyForm);
+            replyForm.classList.remove("hidden");
+        });
+    });
+</script>
+
 {% endblock %}

@@ -5,16 +5,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>{% block title %}Brasil Hacking Society{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"></script>
 </head>
 <body class="bg-zinc-950 text-zinc-200 min-h-screen">
 
     <!-- Navbar -->
     <nav class="border-b border-zinc-800 bg-zinc-950">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="text-lg font-semibold text-emerald-400">
-                Brasil Hacking Society
-            </a>
+            <a href="/" class="text-lg font-semibold text-emerald-400">Brasil Hacking Society</a>
 
             <div class="flex gap-6 text-sm text-zinc-400">
                 <a href="/writeups" class="hover:text-zinc-200">Writeups</a>
@@ -27,7 +26,6 @@
                     <a href="/post/question/new" class="hover:text-zinc-200">Publicar</a>
                     <a href="/logout" class="hover:text-zinc-200">Logout</a>
                 {% endif %}
-
             </div>
         </div>
     </nav>

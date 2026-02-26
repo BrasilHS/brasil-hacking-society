@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, request, url_for
 
-from ..models import Post
+from ..models import Post, Comment
 
 post_view_bp = Blueprint("post_view", __name__)
 

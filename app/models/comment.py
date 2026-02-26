@@ -59,5 +59,14 @@ class Comment(db.Model):
         back_populates="replies"
     )
 
+    def insert(self):
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            raise e
 
+    def set_user_id(self, user_id):
+        self.user_id = user_id
 

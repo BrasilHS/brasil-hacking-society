@@ -6,7 +6,7 @@ from ..extensions import ma
 class PostCreate(ma.Schema):
 
     class Meta:
-        unknow = EXCLUDE
+        unknown = EXCLUDE
 
     title = fields.String(required=True)
     content = fields.String(required=True)

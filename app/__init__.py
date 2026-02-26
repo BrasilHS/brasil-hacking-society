@@ -22,8 +22,10 @@ def create_app():
     # Importing api routes
     from .api.auth import auth_api_bp
     from .api.post import post_api_bp
+    from .api.comment import comment_api_bp
     app.register_blueprint(auth_api_bp, url_prefix="/api/auth")
     app.register_blueprint(post_api_bp, url_prefix="/api/post")
+    app.register_blueprint(comment_api_bp, url_prefix="/api/comment")
 
     # Importing views routes
     from .views.auth import auth_view_bp

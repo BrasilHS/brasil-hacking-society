@@ -20,15 +20,7 @@
                 <label class="block text-sm text-gray-400 mb-2">
                     Username
                 </label>
-                <input 
-                    type="text"
-                    name="username"
-                    minlength="3"
-                    required
-                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
-                           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
-                           transition"
-                >
+                <input type="text" name="username" minlength="3" required class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 transition">
             </div>
 
             <!-- Password -->
@@ -36,23 +28,11 @@
                 <label class="block text-sm text-gray-400 mb-2">
                     Senha
                 </label>
-                <input 
-                    type="password"
-                    name="password"
-                    minlength="8"
-                    required
-                    class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 
-                           focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 
-                           transition mb-6"
-                >
+                <input type="password" name="password" minlength="8" required class="w-full px-4 py-2 bg-zinc-950 border border-[#30363d] rounded-md text-gray-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-400 transition mb-6">
             </div>
 
             <!-- Button -->
-            <button 
-                type="submit"
-                class="w-full bg-emerald-400 hover:bg-[#27ae60] text-black font-semibold py-2 rounded-md 
-                       transition duration-200 mt-1"
-            >
+            <button type="submit" class="w-full bg-emerald-400 hover:bg-[#27ae60] text-black font-semibold py-2 rounded-md transition duration-200 mt-1">
                 Entrar
             </button>
 
@@ -61,24 +41,8 @@
         <!-- Register link -->
         <p class="mt-6 text-sm text-gray-500 text-center">
             Não tem conta? 
-            <a href="/register" 
-               class="text-emerald-400 hover:underline ml-1">
-               Criar conta
-            </a>
+            <a href="/register" class="text-emerald-400 hover:underline ml-1">Criar conta</a>
         </p>
     </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById("form_login")
-
-        if (form) {
-            form.addEventListener("submit", (e) => {
-            handleFormSubmit(e, {200: "/"})
-            });
-        }
-    })
-</script>
-
 {% endblock %}
